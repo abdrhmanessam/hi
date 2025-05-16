@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام إدارة المهام</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="loading-screen">
+        <div class="loader">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>جاري تحميل النظام...</p>
+        </div>
+    </div>
+
+    <div id="login-screen" class="screen">
+        <div class="auth-container">
+            <div class="logo">
+                <i class="fas fa-tasks"></i>
+                <h1>نظام إدارة المهام</h1>
+            </div>
+            <div class="input-group">
+                <i class="fas fa-user"></i>
+                <input type="text" id="username" placeholder="اسم المستخدم">
+            </div>
+            <div class="input-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="password" placeholder="كلمة المرور">
+            </div>
+            <button class="btn btn-primary" onclick="login()">
+                <i class="fas fa-sign-in-alt"></i> تسجيل الدخول
+            </button>
+        </div>
+    </div>
+
+    <div id="app-screen" class="screen hidden">
+        <header class="app-header">
+            <div class="user-info">
+                <i class="fas fa-user-circle"></i>
+                <span id="welcome-message"></span>
+                <span id="user-role"></span>
+            </div>
+            <button class="btn btn-icon" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> خروج
+            </button>
+        </header>
+
+        <main class="app-content">
+            <section class="task-form" id="task-form-section">
+                <h2><i class="fas fa-plus-circle"></i> مهمة جديدة</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>عنوان المهمة</label>
+                        <input type="text" id="task-title" placeholder="أدخل عنوان المهمة">
+                    </div>
+                    <div class="form-group">
+                        <label>نوع المهمة</label>
+                        <select id="task-type">
+                            <option value="عمل">عمل</option>
+                            <option value="شخصي">شخصي</option>
+                            <option value="أخرى">أخرى</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>التكلفة (ج.م)</label>
+                        <input type="number" id="task-cost" placeholder="0">
+                    </div>
+                    <div class="form-group">
+                        <label>الأهمية (1-10)</label>
+                        <input type="number" id="task-priority" min="1" max="10" value="5">
+                    </div>
+                    <div class="form-group">
+                        <label>تاريخ التسليم</label>
+                        <input type="date" id="task-due">
+                    </div>
+                    <div class="form-group full-width">
+                        <label>تفاصيل المهمة</label>
+                        <textarea id="task-desc" rows="3"></textarea>
+                    </div>
+                </div>
+                <button class="btn btn-success" onclick="addTask()">
+                    <i class="fas fa-save"></i> حفظ المهمة
+                </button>
+            </section>
+
+            <section class="tasks-list">
+                <div class="section-header">
+                    <h2><i class="fas fa-tasks"></i> المهام الحالية</h2>
+                    <select id="filter-tasks" onchange="filterTasks()">
+                        <option value="all">الكل</option>
+                        <option value="pending">قيد الانتظار</option>
+                        <option value="in_progress">قيد التنفيذ</option>
+                        <option value="completed">مكتملة</option>
+                    </select>
+                </div>
+                <div id="tasks-container"></div>
+            </section>
+        </main>
+    </div>
+
+    <div id="toast" class="toast hidden">
+        <span id="toast-message"></span>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
